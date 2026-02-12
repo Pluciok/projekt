@@ -15,3 +15,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+taskForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const taskName = taskNameInput.value.trim();
+    const priority = prioritySelect.value;
+
+    if (taskName === "") {
+        alert("Nazwa zadania nie może być pusta!");
+        return;
+    }
+
+    const newTask = {
+        id: Date.now(),
+        name: taskName,
+        priority: priority,
+        completed: false
+    };
+
+    tasks.push(newTask);
+    saveToLocalStorage();
+    renderAllTasks();
+    taskForm.reset();
+});
+
