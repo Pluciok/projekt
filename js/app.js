@@ -39,3 +39,50 @@ taskForm.addEventListener("submit", function (e) {
     taskForm.reset();
 });
 
+function renderAllTasks() {
+    taskList.innerHTML = "";
+    completedList.innerHTML = "";
+
+    tasks.forEach(task => {
+        const taskItem = document.createElement("div");
+        taskItem.classList.add("task-item");
+
+        const taskContent = document.createElement("span");
+        taskContent.textContent = `${task.name} (${task.priority})`;
+
+        const completeBtn = document.createElement("button");
+        completeBtn.textContent = "✔";
+        completeBtn.classList.add("complete-btn");
+
+        completeBtn.addEventListener("click", () => {
+            task.completed = true;
+            saveToLocalStorage();
+            renderAllTasks();
+        });
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.textContent = "✖";
+        deleteBtn.classList.add("delete-btn");
+
+        deleteBtn.addEventListener("click", () => {
+            tasks = tasks.filter(t => t.id !== task.id);
+            saveToLocalStorage();
+            renderAllTasks();
+        });
+
+        taskItem.appendChild(taskContent);
+        taskItem.appendChild(completeBtn);
+        taskItem.appendChild(deleteBtn);
+
+        if (task.completed) {
+            taskItem.classList.add("completed");
+            completedList.appendChild(taskItem);
+        } else {
+            taskList.appendChild(taskItem);
+        }
+    });
+}
+
+function saveToLocalStorage() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
