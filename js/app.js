@@ -21,10 +21,6 @@ taskForm.addEventListener("submit", function (e) {
     const taskName = taskNameInput.value.trim();
     const priority = prioritySelect.value;
 
-    if (taskName === "") {
-        alert("Nazwa zadania nie może być pusta!");
-        return;
-    }
     if (taskName.length > 15) {
         alert("Nazwa zadania nie może być dłuższa niż 15 znaków!");
         return;
