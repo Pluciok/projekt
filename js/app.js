@@ -25,6 +25,10 @@ taskForm.addEventListener("submit", function (e) {
         alert("Nazwa zadania nie może być pusta!");
         return;
     }
+    if (taskName.length > 15) {
+        alert("Nazwa zadania nie może być dłuższa niż 15 znaków!");
+        return;
+    }
 
     const newTask = {
         id: Date.now(),
